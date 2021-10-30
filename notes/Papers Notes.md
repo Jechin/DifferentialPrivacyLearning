@@ -26,9 +26,11 @@
 
 设有n个随机算法K，其中Ki满足εi-差分隐私，且任意两个算法的操作数没有交集，则{Ki}（1<=i<=n）组合后的算法满足max(εi)-差分隐私。
 
-# [2 Differential Privacy 概念介绍](https://zhuanlan.zhihu.com/p/61179516)
+## [2 Differential Privacy 概念介绍](https://zhuanlan.zhihu.com/p/61179516)
 
 ### 概念
+
+**保护数据隐私的方法就是将原有的单一查询结果概率化**
 
 背景知识攻击：**假定敌手拥有除了当前我拥有的数据之外的所有其他知识**。
 
@@ -68,4 +70,106 @@ P[‘不抽烟’ | ‘抽烟’] = 0.25
 计算可得ϵ=ln3，所以我们说 Coin Flipping 机制是提供了ln3-DP的。
 
 ## [3 Differential Privacy 简介](https://zhuanlan.zhihu.com/p/139114240)
+
+### 严格差分隐私定义
+
+严格差分隐私
+
+![v2-df71f363007b1d302d464d8d56852bd1_1440w](https://raw.githubusercontent.com/Jechin/PicLib/main/image/v2-df71f363007b1d302d464d8d56852bd1_1440w.png)
+
+### [KL散度](https://zhuanlan.zhihu.com/p/95687720)
+
+引入KL散度来描述两种分布之间的差异，以此来描述相邻数据集之间的差异（信息熵的损失）
+
+KL散度的由来在4 瑞丽熵和瑞丽散度中指出
+$$
+D_{KL}(p||q) = \sum_{i=1}^Np(x_i)\cdot (\log p(x_i)-\log q(x_i))
+$$
+但是我们并不关心这两个分布的整体差异（期望），我们只需要两个分布在差距最大的情况下能够被bound住，所以引入了`MAX-Divergence`，并且使得它小于$\varepsilon$ :
+
+![](https://pic4.zhimg.com/80/v2-68cc85e20633eebd85e45b7903152fa3_1440w.png)
+
+其中$\varepsilon$被称为隐私预算，一般而言，$\varepsilon$越小，隐私保护越好，但是加入的噪声就越大，数据可用性就下降了。
+
+**对于应用差分隐私的算法，首先会设定整体的隐私预算，每访问一次数据，就会扣除一些预算，当预算用完，数据就无法再访问。？？**
+
+### 宽松差分隐私
+
+引入delta
+
+![](https://pic1.zhimg.com/80/v2-54d707ee5f7eb6e1b4dc64f20853fe6c_1440w.png)
+
+对应的`Max-Divergence`
+
+![](https://pic3.zhimg.com/80/v2-8232f370700aaa3e20ea09b1ea65c2ba_1440w.png)
+
+## [4 瑞丽熵和Renyi Divergence(瑞丽散度)](https://zhuanlan.zhihu.com/p/140945752)
+
+### Renyi Entropy瑞丽熵
+
+$$
+\H _{\alpha}(X) = \frac{1}{1-\alpha}\log(\sum_{i=1}^n p_i^{\alpha}), \alpha \ge 0,\alpha \ne 1X
+$$
+
+$\alpha = 0$, $\H_0(X) = \log n$为`Hartley熵`
+
+$\alpha  \to 1$, $\H _1(X) = -\sum_{i=1}^n p_i \ln p_i$ ,为`香农熵`
+
+$\alpha \to \infty $,  $\H_{\infty}(X) = -\log \max_i p_i$, 为`min-entropy`,最小熵
+
+### Renyi Divergence瑞丽散度
+
+瑞丽散度不表示距离（不满足对称性）但是可以表示分布的差距
+$$
+D_{\alpha}(P||Q) = \frac{1}{\alpha -1}\log(\sum_{i=1}^{n}q_i\frac{p_i^{\alpha}}{q_i^{\alpha}})
+$$
+$\alpha \to 1$, $D_1(P||Q) = \sum_{i=1}^np_i\log \frac{p_i}{q_i}$, 为 `KL-Divergence`
+
+$\alpha \to \infty$, $D_{\infty}(P||Q) = \log \max \frac{p_i}{q_i}$, 为`max-Divergence`
+
+### Differential Privacy Divergence
+
+使用`max-devergence`进行 $\varepsilon$约束，得到 $\varepsilon$-差分隐私
+$$
+D_{\infty}(P||Q) = \log \max_i \frac{p_i}{q_i} \le \varepsilon
+$$
+**宽松差分隐私的的隐私预算以及有限的alpha（未理解）**
+
+<img src="https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211030220404943.png" alt="image-20211030220404943" style="zoom:50%;" />
+
+## [5 Laplace-DP](https://zhuanlan.zhihu.com/p/64332308)
+
+**保护数据隐私的方法就是将原有的单一查询结果概率化**，在查询结果中加上均值为0的Laplace噪声。
+
+尽管噪声的均值为0，但是噪声的大小在设计中也起到一定作用。因此，如何设计DP机制和查询也是紧密相关的。
+
+### 查询敏感度
+
+定义了L1-Sensitivity，一范式来表示f查询下相邻数据集之间查询结果的最大差异。
+
+![[公式]](https://www.zhihu.com/equation?tex=f%3A%5Cmathbb%7BN%7D%5E%7B%5Cmathcal%7B%7CX%7C%7D%7D%5Crightarrow+%5Cmathbb%7BR%7D%5Ek)
+
+![equation](https://raw.githubusercontent.com/Jechin/PicLib/main/image/equation.svg)
+
+### Laplace分布
+
+Laplace分布的概率密度函数：
+
+![](https://www.zhihu.com/equation?tex=f%28x%7C%5Cmu%2Cb%29%3D%5Cfrac%7B1%7D%7B2b%7D%5Cexp+%28-%5Cfrac%7B%7Cx-%5Cmu%7C%7D%7Bb%7D%29%3D%5Cfrac%7B1%7D%7B2b%7D%5Cbegin%7Bcases%7D+%5Cexp%28-+%5Cfrac%7B%5Cmu-x%7D%7Bb%7D%29+%26+x+%3C+%5Cmu+%5C%5C+%5Cexp%28-+%5Cfrac%7Bx-%5Cmu%7D%7Bb%7D%29+%26+x+%5Cge+%5Cmu+%5Cend%7Bcases%7D%5C%5C)
+
+### Laplace-DP机制
+
+$$
+M(D) = f(D) + Y \\
+Y \sim L(0, \frac{\Delta f}{\varepsilon})
+$$
+
+满足 $(\varepsilon,0)-DP$
+
+### Laplace应用
+
+1. Counting Queries统计查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
+2. Histogram Queries直方图查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
+
+
 
