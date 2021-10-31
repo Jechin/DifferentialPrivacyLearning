@@ -3,10 +3,10 @@ Description: Laplace-DP
 Autor: Jechin
 Date: 2021-10-31 10:07:20
 LastEditors: Jechin
-LastEditTime: 2021-10-31 17:00:28
+LastEditTime: 2021-10-31 20:02:02
 Dataset: adults
 Epsilon: 0.125
-TypeOfQuery: Counting Queries
+TypeOfQuery: Histogram Queries
 '''
 
 import pandas as pd
