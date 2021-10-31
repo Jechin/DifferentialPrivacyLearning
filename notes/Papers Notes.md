@@ -168,7 +168,7 @@ $$
 
 满足 $(\varepsilon,0)-DP$
 
-### Laplace应用
+### Laplace应用（数值型查询）
 
 1. Counting Queries统计查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
 2. Histogram Queries直方图查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
@@ -198,11 +198,16 @@ $(\varepsilon , \delta)-DP$满足如下
 $$
 \Pr [M(D) \in S] \le e^{\varepsilon} \Pr [M(D') \in S] + \delta \\
 M(D) = f(D) + Y \\
-Y \sim \mathcal N (0, \sigma ^2)
+Y \sim \mathcal N (0, \sigma ^2), \sigma > \frac{\sqrt{s \ln(1.25/\delta)}\Delta f}{\varepsilon}
 $$
 
 
+### Gaussian Mechanism应用于数值型查询
 
+### Gaussian-DP证明
+
+1. 在松弛差分隐私中，输出可以分为两部分，一部分是严格遵守差分隐私的，另一部分是违反了严格差分隐私的。
+2. 因此我们需要将输出集合分隔成两部分，证明第一部分是被 $\varepsilon$ 约束住，而第二部分小于 $\delta$ 。
 
 
 
