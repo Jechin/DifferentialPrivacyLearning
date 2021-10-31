@@ -3,7 +3,7 @@ Description: Exponential Mechanism in DP
 Autor: Jechin
 Date: 2021-10-31 23:59:37
 LastEditors: Jechin
-LastEditTime: 2021-11-01 00:55:01
+LastEditTime: 2021-11-01 00:56:55
 Dataset: adults
 Epsilon: 0, 0.01, 0.05
 TypeOfQuery: Non-numeric Queries
@@ -38,7 +38,7 @@ eps = [0.0, 0.01, 0.05]
 sensitivity = 1.0
 
 # Write dateset to excel
-writer = pd.ExcelWriter('Exponential-DP/test.xlsx')
+writer = pd.ExcelWriter('Exponential-DP/results.xlsx')
 header = ["Values"]
 datacount.to_excel(excel_writer=writer, sheet_name="sheet1", header=header)
 
