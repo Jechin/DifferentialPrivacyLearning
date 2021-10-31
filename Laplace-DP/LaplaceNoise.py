@@ -3,7 +3,7 @@ Description: Laplace-DP
 Autor: Jechin
 Date: 2021-10-31 10:07:20
 LastEditors: Jechin
-LastEditTime: 2021-10-31 20:02:02
+LastEditTime: 2021-11-01 01:13:26
 Dataset: adults
 Epsilon: 0.125
 TypeOfQuery: Histogram Queries
@@ -44,16 +44,20 @@ index=list(datacount.index)
 laplacenoise=pd.Series(Laplacian_noise,index=index)
 
 # Generate noisydata histogram
-plt.figure(1)
+plt.figure("Figure 1: Laplace noisydata histogram")
+plt.title("Laplace noisydata histogram")
 noisydata.plot(kind="bar",color = 'g')
+plt.savefig("Laplace-DP/Noise Data.png")
 
 
 # Generate actual and noise histogram
-plt.figure(2)
+plt.figure("Figure 2: Laplace actual and noise histogram")
 plt.ylabel("num")
 plt.xlabel("age")
 plt.bar(range(len(noisydata)),datacount,label='datacount',fc='y')
 plt.bar(range(len(noisydata)),laplacenoise,bottom=datacount,label='noise',tick_label=index,fc='r')
+plt.title("Laplace actual and noise histogram")
 plt.legend()
 plt.plot()
+plt.savefig("Laplace-DP/Actual and Noise.png")
 plt.show()
