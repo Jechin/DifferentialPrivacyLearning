@@ -137,7 +137,7 @@ $$
 
 <img src="https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211030220404943.png" alt="image-20211030220404943" style="zoom:50%;" />
 
-## [5 Laplace-DP](https://zhuanlan.zhihu.com/p/64332308)
+## [5 Laplace Mechanism](https://zhuanlan.zhihu.com/p/64332308)
 
 **保护数据隐私的方法就是将原有的单一查询结果概率化**，在查询结果中加上均值为0的Laplace噪声。
 
@@ -175,7 +175,7 @@ $$
 
 
 
-## [6 Gaussian Differential Privacy GDP](https://zhuanlan.zhihu.com/p/144318152)
+## [6 Gaussian Mechanism](https://zhuanlan.zhihu.com/p/144318152)	
 
 Gaussian提供宽松松弛的差分隐私
 
@@ -209,13 +209,37 @@ $$
 1. 在松弛差分隐私中，输出可以分为两部分，一部分是严格遵守差分隐私的，另一部分是违反了严格差分隐私的。
 2. 因此我们需要将输出集合分隔成两部分，证明第一部分是被 $\varepsilon$ 约束住，而第二部分小于 $\delta$ 。
 
+## [7 Exponential Mechanism](https://zhuanlan.zhihu.com/p/144318152)
 
+指数机制针对于非数值型的查询，查询结果为一组离散数据中 $\{R_1, R_2,\ldots, R_N\}$ 的一项
 
+整体思想为：将确定的查询结果转变为按一定概率输出在离散数据中的不确定输出。在离散数据中每一项针对这一查询的输出概率由打分函数$\mu$决定，分数越高，概率越高。
 
+### 打分函数
 
+定义一个打分函数为$q$，其中$N^{|\mathcal X|}$为多维数据集，$\mathcal R$为一组结果离散集，查询的结果为$\mathcal R$中的一项，$\R$为实数集。
+$$
+q: \N^{|\mathcal X|} \times \mathcal R \to \R
+$$
 
+### 查询敏感度 L1 Sensitivity
 
+$$
+\Delta q = \max_{D,D'} ||q(D,R_i)-q(D',R_i)||_1
+$$
 
+### 分布
+
+Exponential Mechanism指数机制以 $M(D,q,R_i) \sim \exp(\frac{\varepsilon q(D, R_i)}{2 \Delta q})$ （正比于）的概率输出结果。
+
+归一化为概率后：
+$$
+\Pr[R_i] = \frac{\exp(\frac{\varepsilon q(D, R_i)}{2 \Delta q})}
+{\sum_{R_j \in \mathcal R} \exp(\frac{\varepsilon q(D, R_j)}{2 \Delta q})}
+$$
+**隐私预算和可用性成正比，和隐私保护成反比。**
+
+### Exponential Mechanism应用于非数值型的查询
 
 
 
