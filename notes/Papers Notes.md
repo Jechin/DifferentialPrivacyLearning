@@ -143,9 +143,11 @@ $$
 
 尽管噪声的均值为0，但是噪声的大小在设计中也起到一定作用。因此，如何设计DP机制和查询也是紧密相关的。
 
-### 查询敏感度
+Laplaceti提供严格的 $(\varepsilon ,0)-DP$，$\delta=0$。松弛项为0。
 
-定义了L1-Sensitivity，一范式来表示f查询下相邻数据集之间查询结果的最大差异。
+### 查询敏感度 L1 Sensitivity
+
+定义了**L1-Sensitivity**，一范式（绝对值之和）来表示f查询下相邻数据集之间查询结果的最大差异。
 
 ![[公式]](https://www.zhihu.com/equation?tex=f%3A%5Cmathbb%7BN%7D%5E%7B%5Cmathcal%7B%7CX%7C%7D%7D%5Crightarrow+%5Cmathbb%7BR%7D%5Ek)
 
@@ -170,6 +172,47 @@ $$
 
 1. Counting Queries统计查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
 2. Histogram Queries直方图查询，查询敏感度为1，加上 $L(0,1/\varepsilon)$的噪声
+
+
+
+## [6 Gaussian Differential Privacy GDP](https://zhuanlan.zhihu.com/p/144318152)
+
+Gaussian提供宽松松弛的差分隐私
+
+### 查询敏感度 L2 Sensitivity
+
+定义L2-Sensitivity，二范式（欧几里得范数，绝对值的平方和再开方）
+
+![L2-Sensitivity](https://pic1.zhimg.com/80/v2-cb21e86ceab20ba8b3664cb3a8823774_1440w.png)
+
+### 正态分布
+
+GDP添加正态分布的噪声。 
+
+正态分布的概率密度函数如下：
+$$
+f(x)=\frac{1}{\sqrt{{2\pi}}\sigma}
+\exp(\frac{(x-\mu)^2}{2\sigma^2})
+$$
+$(\varepsilon , \delta)-DP$满足如下
+$$
+\Pr [M(D) \in S] \le e^{\varepsilon} \Pr [M(D') \in S] + \delta \\
+M(D) = f(D) + Y \\
+Y \sim \mathcal N (0, \sigma ^2)
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
