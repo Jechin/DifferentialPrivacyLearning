@@ -3,7 +3,7 @@ Description: Gaussian Differential Privacy
 Autor: Jechin
 Date: 2021-10-31 20:21:39
 LastEditors: Jechin
-LastEditTime: 2021-10-31 20:54:00
+LastEditTime: 2021-11-01 01:12:49
 Dataset: adults
 Epsilon: 0.125
 Delta: 10^(-5)
@@ -48,16 +48,19 @@ index=list(datacount.index)
 Gaussiannoise=pd.Series(Gaussian_noise,index=index)
 
 # Generate noisydata histogram
-plt.figure(1)
+plt.figure("Figure 1: Gaussian noisydata histogram")
+plt.title("Gaussian noisydata histogram")
 noisydata.plot(kind="bar",color = 'g')
-
+plt.savefig("Gaussian-DP/Noise Data.png")
 
 # Generate actual and noise histogram
-plt.figure(2)
+plt.figure("Figure 2: Gaussian actual and noise histogram")
 plt.ylabel("num")
 plt.xlabel("age")
 plt.bar(range(len(noisydata)),datacount,label='datacount',fc='y')
 plt.bar(range(len(noisydata)),Gaussiannoise,bottom=datacount,label='noise',tick_label=index,fc='r')
+plt.title("Gaussian actual and noise histogram")
 plt.legend()
 plt.plot()
+plt.savefig("Gaussian-DP/Actual and Noise.png")
 plt.show()
