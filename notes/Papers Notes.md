@@ -18,6 +18,8 @@
 
 ### DP组合性质
 
+在 8 Composition Theorem中详细介绍
+
 #### **性质1**
 
 假设有n个随机算法K，其中Ki满足εi-差分隐私，则{Ki}（1<=i<=n）组合后的算法满足sum(εi)-差分隐私。
@@ -79,7 +81,7 @@ P[‘不抽烟’ | ‘抽烟’] = 0.25
 
 ### [KL散度](https://zhuanlan.zhihu.com/p/95687720)
 
-引入KL散度来描述两种分布之间的差异，以此来描述相邻数据集之间的差异（信息熵的损失）
+引入KL散度来描述两种分布之间的差异（**Privacy Loss**），以此来描述相邻数据集之间的差异（信息熵的损失）
 
 KL散度的由来在4 瑞丽熵和瑞丽散度中指出
 $$
@@ -198,7 +200,7 @@ $(\varepsilon , \delta)-DP$满足如下
 $$
 \Pr [M(D) \in S] \le e^{\varepsilon} \Pr [M(D') \in S] + \delta \\
 M(D) = f(D) + Y \\
-Y \sim \mathcal N (0, \sigma ^2), \sigma > \frac{\sqrt{s \ln(1.25/\delta)}\Delta f}{\varepsilon}
+Y \sim \mathcal N (0, \sigma ^2), \sigma > \frac{\sqrt{2 \ln(1.25/\delta)}\Delta f}{\varepsilon}
 $$
 
 
@@ -241,7 +243,23 @@ $$
 
 ### Exponential Mechanism应用于非数值型的查询
 
+## [8 Composition Theorem](https://zhuanlan.zhihu.com/p/212819144)
 
+目的就是将一系列满足差分隐私的查询组合在一起，并且保证整体仍然满足差分隐私。
+
+### Basic Composition Theorem （查询之间不存在关联）
+
+#### Sequential Composition 串行组合
+
+- 串行组成 **同一数据集，不同查询**
+
+$M_i$提供了一个满足 $\varepsilon_i-DP$，则针对同一个数据集$X$的**串行查询** $M_i(X)$提供了 $(\sum_i \varepsilon_i)-DP$
+
+#### Parallel Composition 并行组合
+
+- 并行组成 **不相交数据集，不同查询**
+
+若一个在数据集$X$满足 $\varepsilon_i - DP$的差分隐私查询算法$M_i$，$D_i$是互不相交的数据集$X$的子集，那么 $M_i(X \cap D_i)$序列的整体能够提供一个 $(\max_i \varepsilon_i)-DP$的差分隐私。
 
 
 
