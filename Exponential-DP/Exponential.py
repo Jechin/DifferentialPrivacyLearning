@@ -3,7 +3,7 @@ Description: Exponential Mechanism in DP
 Autor: Jechin
 Date: 2021-10-31 23:59:37
 LastEditors: Jechin
-LastEditTime: 2021-11-01 00:56:55
+LastEditTime: 2021-11-01 19:30:44
 Dataset: adults
 Epsilon: 0, 0.01, 0.05
 TypeOfQuery: Non-numeric Queries
@@ -45,14 +45,15 @@ datacount.to_excel(excel_writer=writer, sheet_name="sheet1", header=header)
 for i in range(3):
     # Calculate Score with Exponential Mechanism
     score = np.exp(eps[i] * datacount / (2 * sensitivity))
-    print("\nscore: \n", score)
-    print("------------------------------------------")
 
     # Calculate probablity of each country
     sum_score = score.sum()
     probablity = score / sum_score
-    print("\nprobablity: \n", probablity)
-    print("------------------------------------------")
+
+    # Merge in one Frame
+    new = pd.concat([datacount, score, probablity], axis=1, ignore_index=True)
+    new.columns=["values", "scores", "probablity"]
+    print(new)
 
     # Write probablity to excel
     label = "eps=" + str(eps[i])
@@ -60,5 +61,5 @@ for i in range(3):
     header.append(label)
     probablity.to_excel(excel_writer=writer, sheet_name="sheet1", startcol=i + 2, index=False, header=header)
 
-writer.save()    
+writer.save()
 writer.close()
