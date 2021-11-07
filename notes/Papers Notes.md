@@ -261,5 +261,3 @@ $M_i$提供了一个满足 $\varepsilon_i-DP$，则针对同一个数据集$X$�
 
 若一个在数据集$X$满足 $\varepsilon_i - DP$的差分隐私查询算法$M_i$，$D_i$是互不相交的数据集$X$的子集，那么 $M_i(X \cap D_i)$序列的整体能够提供一个 $(\max_i \varepsilon_i)-DP$的差分隐私。
 
-
-
