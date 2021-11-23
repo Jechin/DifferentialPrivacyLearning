@@ -223,3 +223,39 @@ $$
 
 ![image-20211116220411437](https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211116220411437.png)
 
+
+
+## 基于差分隐私的轨迹隐私保护方案_陈思
+
+![image-20211123204011281](https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211123204011281.png)
+
+TPPDP算法主要分为以上四步，主要设计两个子算法：轨迹处理子算法和数据发布子算法。
+
+### 轨迹处理子算法 TraPro
+
+主要分为时间泛化和空间分隔，将时间和地点进行聚类以做到泛化的作用，起到一定的隐私保护作用。
+
+#### 时间泛化：
+
+使用k-means聚类算法，对时间点进行聚类，使用每个时间点聚类的质心来代替该聚类内所有时间点。
+
+![image-20211123204501778](https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211123204501778.png)
+
+#### 空间分隔：
+
+对同一时间聚类内的地点使用不同的聚类数量$k$进行位置的k-means聚类划分。在不同的聚类划分中，使用高斯机制进行概率选择（打分函数如下）。
+$$
+U(D,P) = \frac{\mathrm{MeanDist}\left(\tilde{P}\right)}{\mathrm{MeanDist}\left(P\right)}
+$$
+
+$$
+\mathrm{MeanDist}(P) = \frac{1}{g \left| D_{Ls^k_P}\right|} \sum_{k=1}^g \sum_{T_i \in D_{Ls^k_P}}\mathrm{Distance} \left( T_i, \tilde{T_i}\right)
+$$
+
+<img src="https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211123212050924.png" alt="image-20211123212050924" style="zoom:33%;" />
+
+### 数据发布子算法
+
+主要分为轨迹优化（删除异常轨迹）和轨迹发布（添加Laplace噪声）
+
+<img src="https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211123212827982.png" alt="image-20211123212827982" style="zoom:50%;" /><img src="https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211123212908768.png" alt="image-20211123212908768" style="zoom:50%;" /> 
