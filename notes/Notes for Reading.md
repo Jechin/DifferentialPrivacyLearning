@@ -150,7 +150,7 @@ $$
 
 $D$是轨迹的数据集，$T_d(S_i)$为停留点 $S_i$的停留时间。
 
-#### 利用高斯机制，选择停留点并分配隐私预算
+#### 利用指数机制，选择停留点并分配隐私预算
 
 ![image-20211115201914301](https://raw.githubusercontent.com/Jechin/PicLib/main/image/image-20211115201914301.png)
 
